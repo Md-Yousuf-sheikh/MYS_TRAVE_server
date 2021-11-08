@@ -20,7 +20,7 @@ async function run() {
         await client.connect();
         const database = client.db('events-service');
         const eventCollection = database.collection("events");
-
+        const bookingCollection = database.collection('booking')
         // Get Api
         app.get('/events', async (req, res) => {
             const cursor = eventCollection.find({});
@@ -38,7 +38,12 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await eventCollection.deleteOne(query);
-
+            res.json(result)
+        })
+        // booking post collection
+        app.post('/booking', async (req, res) => {
+            const newUser = req.body;
+            const result = await bookingCollection.insertOne(newUser);
             res.json(result)
         })
 

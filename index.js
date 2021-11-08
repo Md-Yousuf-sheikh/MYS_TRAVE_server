@@ -41,6 +41,13 @@ async function run() {
             const result = await eventCollection.deleteOne(query);
             res.json(result)
         })
+        // Delete Post
+        app.delete('/booking:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await bookingCollection.deleteOne(query);
+            res.json(result)
+        })
         // booking post collection
         app.post('/booking', async (req, res) => {
             const newUser = req.body;

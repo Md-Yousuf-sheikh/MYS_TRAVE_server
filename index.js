@@ -27,6 +27,7 @@ async function run() {
             const events = await cursor.toArray();
             res.send(events);
         })
+
         // Send Post
         app.post('/events', async (req, res) => {
             const newUser = req.body;
@@ -46,7 +47,12 @@ async function run() {
             const result = await bookingCollection.insertOne(newUser);
             res.json(result)
         })
-
+        // // Get booking Api
+        app.get('/booking', async (req, res) => {
+            const cursor = bookingCollection.find({});
+            const booking = await cursor.toArray();
+            res.send(booking);
+        })
 
 
     }
